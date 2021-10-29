@@ -14,7 +14,7 @@ const Simulation = () => {
       <Heading size="lg" mb="4" fontWeight="bold">
         Simulasi
       </Heading>
-      <Alert status="warning" alignItems="start">
+      <Alert status="warning" alignItems="start" fontSize="sm" rounded="xl">
         <AlertIcon />
         Perlu diingat bahwa proses dan hasil dari simulasi ini bersifat
         probable, sehingga kondisi yang tergambarkan dari hasil simulasi ini
