@@ -1,7 +1,7 @@
 import { Heading, Text } from '@chakra-ui/layout';
 import { Helmet } from 'react-helmet';
-import DashboardLayout from '../../layouts/DashboardLayout';
-import BackButton from '../ui/BackButton';
+import DashboardLayout from './DashboardLayout';
+import BackButton from '../components/ui/BackButton';
 
 export default function SimulationLayout({ trial, children }) {
   return (

@@ -9,17 +9,14 @@ import agencyService from '../../services/agencyService';
 import trialService from '../../services/trialService';
 import { majorAgenciesState, userAgenciesState } from '../../stores/agency';
 import { userState } from '../../stores/user';
-import SimulationLayout from './SimulationLayout';
+import SimulationLayout from '../../layouts/SimulationLayout';
 import SimulationOption from './SimulationOption';
 
-export default function OpenSimulation() {
+export default function OpenSimulation({ trial }) {
   const user = useRecoilValue(userState);
   const bgColor = useColorModeValue('white', 'gray.800');
 
   let { id } = useParams();
-
-  const [trial, setTrial] = useState();
-  const [isLoading, setIsLoading] = useState();
 
   const setMajorAgencies = useSetRecoilState(majorAgenciesState);
   const [userAgencies, setUserAgencies] = useRecoilState(userAgenciesState);
@@ -38,21 +35,11 @@ export default function OpenSimulation() {
     });
   };
 
-  // fetcher trial
-  const fetchTrial = async () => {
-    setIsLoading(true);
-    await trialService.get(id, user.token).then(({ data }) => {
-      setTrial(data);
-      console.log(data);
-    });
-  };
-
   // fetching trial
   useEffect(() => {
-    fetchTrial();
     fetchMajorAgency();
     fetchUserAgency();
-  }, [user, setIsLoading]);
+  }, [user]);
 
   return (
     <SimulationLayout trial={trial}>
@@ -60,13 +47,12 @@ export default function OpenSimulation() {
         <AlertIcon />
         <Text as="div" fontSize="sm">
           Ditutup dalam{' '}
-          {/* <Text
+          <Text
             as={Countdown}
             fontWeight="bold"
             date={trial.closed_at}
             zeroPadDays={0}
-            onComplete={() => fetchTrial()}
-          /> */}
+          />
         </Text>
       </Alert>
       {userAgencies.length > 0 && (
@@ -101,7 +87,7 @@ export default function OpenSimulation() {
       )}
       {trial.trial_options.length > 0 &&
         trial.trial_options.map(option => (
-          <SimulationOption key={option.id} trialOption={option} />
+          <SimulationOption key={option.title} trialOption={option} />
         ))}
 
       {trial.trial_options.length < 1 && (

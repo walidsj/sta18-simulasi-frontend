@@ -1,14 +1,12 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AuthenticatedRoute } from './AuthenticatedRoute';
 import { UnauthenticatedRoute } from './UnauthenticatedRoute';
-import { lazy, Suspense, useEffect } from 'react';
-import { Spinner, Flex } from '@chakra-ui/react';
 import Login from '../pages/auth/Login';
 import ScrollToTop from '../components/ScrollToTop';
 import MyProfile from '../pages/dashboard/MyProfile';
 import Agencies from '../pages/dashboard/Agencies';
 import AgencyDetail from '../pages/dashboard/AgencyDetail';
-import Simulation from '../pages/dashboard/simulation/Simulation';
+import Simulation from '../pages/dashboard/Simulation';
 import SimulationDetail from '../pages/dashboard/simulation/SimulationDetail';
 // const MyProfile = lazy(() => import('../pages/dashboard/MyProfile'));
 // const Agencies = lazy(() => import('../pages/dashboard/Agencies'));

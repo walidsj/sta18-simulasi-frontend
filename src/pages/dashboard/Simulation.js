@@ -1,11 +1,11 @@
-import DashboardLayout from '../../../layouts/DashboardLayout';
+import DashboardLayout from '../../layouts/DashboardLayout';
 import { Helmet } from 'react-helmet';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userState } from '../../../stores/user';
+import { userState } from '../../stores/user';
 import { Box, Flex, Heading, Text } from '@chakra-ui/layout';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
-import { trialsState } from '../../../stores/trial';
-import trialService from '../../../services/trialService';
+import { trialsState } from '../../stores/trial';
+import trialService from '../../services/trialService';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@chakra-ui/spinner';
 import { Link } from 'react-router-dom';
