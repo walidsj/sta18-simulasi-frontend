@@ -13,17 +13,26 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import swal from 'sweetalert';
 import { object, string } from 'yup';
 import agencyService from '../../services/agencyService';
-import { majorAgenciesState } from '../../stores/agency';
+import { majorAgenciesState, userAgenciesState } from '../../stores/agency';
 import { userState } from '../../stores/user';
 
 function SimulationOption({ trialOption }) {
   const user = useRecoilValue(userState);
   const [majorAgencies, setMajorAgencies] = useRecoilState(majorAgenciesState);
+  const [userAgencies, setUserAgencies] = useRecoilState(userAgenciesState);
 
   // validation form
   const schema = object().shape({
     agency_id: string().required('Pilihan harus diisi.'),
   });
+
+  const fetchUserAgency = async () => {
+    await agencyService
+      .getUserAgency(trialOption.trial_id, user.token)
+      .then(({ data }) => {
+        setUserAgencies(data);
+      });
+  };
 
   const {
     register,
@@ -38,6 +47,7 @@ function SimulationOption({ trialOption }) {
     await agencyService
       .postUserAgency(trialOption.trial_id, trialOption.id, values, user.token)
       .then(({ message }) => {
+        fetchUserAgency();
         return swal('Success', message, 'success');
       })
       .catch(({ response }) => {

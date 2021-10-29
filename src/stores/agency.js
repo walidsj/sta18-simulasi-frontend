@@ -9,3 +9,8 @@ export const majorAgenciesState = atom({
   key: 'majorAgenciesState',
   default: '',
 });
+
+export const userAgenciesState = atom({
+  key: 'userAgenciesState',
+  default: '',
+});

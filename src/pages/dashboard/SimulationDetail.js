@@ -1,9 +1,9 @@
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../../stores/user';
-import { Heading, Text } from '@chakra-ui/layout';
+import { Flex, Heading, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
 import BackButton from '../../components/ui/BackButton';
@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
 import SimulationOption from '../../components/simulation/SimulationOption';
 import agencyService from '../../services/agencyService';
-import { majorAgenciesState } from '../../stores/agency';
+import { majorAgenciesState, userAgenciesState } from '../../stores/agency';
 
 const SimulationDetail = () => {
   const user = useRecoilValue(userState);
@@ -23,13 +23,23 @@ const SimulationDetail = () => {
   const [isLoading, setIsLoading] = useState();
 
   const setMajorAgencies = useSetRecoilState(majorAgenciesState);
+  const [userAgencies, setUserAgencies] = useRecoilState(userAgenciesState);
 
+  // fetcher major_agencies sebagai daftar pilihan
   const fetchMajorAgency = async () => {
     await agencyService
       .getMajorAgencies(user.major.id, user.user_type.id, user.token)
       .then(({ data }) => setMajorAgencies(data));
   };
 
+  // fetcher user_agencies
+  const fetchUserAgency = async () => {
+    await agencyService.getUserAgency(id, user.token).then(({ data }) => {
+      setUserAgencies(data);
+    });
+  };
+
+  // fetcher trial
   const fetchTrial = async () => {
     setIsLoading(true);
     await trialService.get(id, user.token).then(({ data }) => setTrial(data));
@@ -39,6 +49,7 @@ const SimulationDetail = () => {
   useEffect(() => {
     fetchTrial();
     fetchMajorAgency();
+    fetchUserAgency();
   }, [user, setIsLoading]);
 
   // simulasi tidak ditemukan
@@ -69,9 +80,38 @@ const SimulationDetail = () => {
             />
           </Text>
         </Alert>
+        {userAgencies.length > 0 && (
+          <Flex
+            p="3"
+            direction="column"
+            bg="white"
+            rounded="xl"
+            shadow="lg"
+            mb="6"
+          >
+            <Heading size="sm">Pilihan Tersimpan</Heading>
+            <Alert
+              status="success"
+              variant="subtle"
+              fontSize="xs"
+              p="1"
+              my="2"
+              rounded="lg"
+            >
+              <AlertIcon />
+              Tidak perlu kunci data selama data pilihan tersimpan sudah sesuai
+              dengan keinginan. Tinggal menunggu simulasi ditutup.
+            </Alert>
+            {userAgencies.map(({ id, title, name }) => (
+              <Text key={id}>
+                <strong>{title}</strong> - {name}
+              </Text>
+            ))}
+          </Flex>
+        )}
         {trial.trial_options.length > 0 &&
           trial.trial_options.map(option => (
-            <SimulationOption trialOption={option} />
+            <SimulationOption key={option.id} trialOption={option} />
           ))}
 
         {trial.trial_options.length < 1 && (
