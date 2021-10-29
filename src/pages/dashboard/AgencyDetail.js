@@ -42,6 +42,9 @@ const AgencyDetail = () => {
     return (
       <DashboardLayout>
         <Helmet title="Informasi Instansi" />
+        <Heading size="lg" mb="4" fontWeight="bold">
+          Informasi Instansi
+        </Heading>
         {isLoading ? <Spinner /> : <Text>Tidak ditemukan.</Text>}
       </DashboardLayout>
     );
