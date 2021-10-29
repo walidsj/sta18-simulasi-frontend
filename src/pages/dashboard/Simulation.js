@@ -2,7 +2,7 @@ import DashboardLayout from '../../layouts/DashboardLayout';
 import { Helmet } from 'react-helmet';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../../stores/user';
-import { Flex, Heading, Text } from '@chakra-ui/layout';
+import { Box, Flex, Heading, Text } from '@chakra-ui/layout';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { trialsState } from '../../stores/trial';
 import trialService from '../../services/trialService';
@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import Icon from '@chakra-ui/icon';
 import dayjs from 'dayjs';
+import Countdown from 'react-countdown';
 
 const Simulation = () => {
   const user = useRecoilValue(userState);
@@ -19,18 +20,18 @@ const Simulation = () => {
   const [trials, setTrials] = useRecoilState(trialsState);
   const [isLoading, setIsLoading] = useState();
 
+  const fetchTrials = async () => {
+    setIsLoading(true);
+    const { data } = await trialService.getAll(user.token);
+    setTrials(data);
+    console.log(data);
+    setIsLoading(false);
+  };
+
   // fetching list of trial
   useEffect(() => {
-    const fetchTrials = async () => {
-      setIsLoading(true);
-      const { data } = await trialService.getAll(user.token);
-      setTrials(data);
-      console.log(data);
-      setIsLoading(false);
-    };
-
     fetchTrials();
-  }, [user, setIsLoading]);
+  }, []);
 
   if (!trials)
     return (
@@ -71,7 +72,7 @@ const Simulation = () => {
         .filter(({ closed_at }) => {
           return dayjs(closed_at) > dayjs(new Date());
         })
-        .map(({ id, title, description }) => (
+        .map(({ id, title, description, opened_at, closed_at }) => (
           <Flex
             key={id}
             as={Link}
@@ -81,7 +82,7 @@ const Simulation = () => {
             shadow="md"
             rounded="lg"
             p="3"
-            alignItems="start"
+            alignItems="center"
             my="2"
           >
             <Flex bg="red.100" rounded="full" p="3" fontSize="xl" mr="3">
@@ -89,9 +90,47 @@ const Simulation = () => {
             </Flex>
             <Flex direction="column">
               <Heading size="md">{title}</Heading>
-              <Text fontSize="md" noOfLines="3" mb="3">
+              <Text fontSize="md" noOfLines="3">
                 {description}
               </Text>
+              <Box>
+                {dayjs(opened_at) > dayjs(new Date()) && (
+                  <Alert status="success" p="0" variant="subtle" rounded="full">
+                    <AlertIcon />
+                    <Text as="div" fontSize="sm">
+                      Dibuka dalam{' '}
+                      <Text
+                        as={Countdown}
+                        fontWeight="bold"
+                        date={dayjs(opened_at)}
+                        zeroPadDays={0}
+                        onComplete={() => fetchTrials()}
+                      />
+                    </Text>
+                  </Alert>
+                )}
+                {dayjs(opened_at) <= dayjs(new Date()) &&
+                  dayjs(closed_at) > dayjs(new Date()) && (
+                    <Alert
+                      status="warning"
+                      p="0"
+                      variant="subtle"
+                      rounded="full"
+                    >
+                      <AlertIcon />
+                      <Text as="div" fontSize="sm">
+                        Ditutup dalam{' '}
+                        <Text
+                          as={Countdown}
+                          fontWeight="bold"
+                          date={dayjs(closed_at)}
+                          zeroPadDays={0}
+                          onComplete={() => fetchTrials()}
+                        />
+                      </Text>
+                    </Alert>
+                  )}
+              </Box>
             </Flex>
           </Flex>
         ))}
@@ -121,9 +160,17 @@ const Simulation = () => {
             </Flex>
             <Flex direction="column">
               <Heading size="md">{title}</Heading>
-              <Text fontSize="md" noOfLines="3" mb="3">
+              <Text fontSize="md" noOfLines="3">
                 {description}
               </Text>
+              <Box>
+                <Alert status="error" p="0" variant="subtle" rounded="full">
+                  <AlertIcon />
+                  <Text as="div" fontSize="sm">
+                    Sudah ditutup
+                  </Text>
+                </Alert>
+              </Box>
             </Flex>
           </Flex>
         ))}
