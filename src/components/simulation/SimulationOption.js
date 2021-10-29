@@ -4,12 +4,11 @@ import {
   FormErrorMessage,
   FormLabel,
 } from '@chakra-ui/form-control';
-import { Flex, Heading } from '@chakra-ui/layout';
+import { Flex } from '@chakra-ui/layout';
 import { Select } from '@chakra-ui/select';
 import { Spinner } from '@chakra-ui/spinner';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { FaLock } from 'react-icons/fa';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import swal from 'sweetalert';
 import { object, string } from 'yup';
@@ -37,12 +36,7 @@ function SimulationOption({ trialOption }) {
 
   const onSubmit = async values => {
     await agencyService
-      .postUserAgency(
-        trialOption.trial_id,
-        trialOption.id,
-        { user_id: user.sub, agency_id: values.agency_id },
-        user.token
-      )
+      .postUserAgency(trialOption.trial_id, trialOption.id, values, user.token)
       .then(({ message }) => {
         return swal('Success', message, 'success');
       })
