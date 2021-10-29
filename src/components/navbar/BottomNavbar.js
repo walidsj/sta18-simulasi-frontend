@@ -5,9 +5,14 @@ import { FaBuilding, FaCodeBranch, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 
 const links = [
-  { text: 'Info Instansi', to: '/info-instansi', icon: FaBuilding },
-  { text: 'Simulasi', to: '/simulasi', icon: FaCodeBranch },
-  { text: 'Profil Saya', to: '/', icon: FaUser },
+  {
+    text: 'Info Instansi',
+    to: '/info-instansi',
+    icon: FaBuilding,
+    exact: false,
+  },
+  { text: 'Simulasi', to: '/simulasi', icon: FaCodeBranch, exact: false },
+  { text: 'Profil Saya', to: '/', icon: FaUser, exact: true },
 ];
 
 const BottomNavbar = () => {
@@ -31,10 +36,10 @@ const BottomNavbar = () => {
         py="2"
       >
         <Grid w="full" templateColumns="repeat(3, 1fr)" gridGap="20px">
-          {links.map(({ text, to, icon }) => (
+          {links.map(({ text, to, icon, exact }) => (
             <NavLink
               key={text}
-              exact
+              exact={exact}
               to={to}
               activeStyle={{ color: '#822727' }}
             >

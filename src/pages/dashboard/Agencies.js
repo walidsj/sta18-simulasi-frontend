@@ -2,30 +2,18 @@ import DashboardLayout from '../../layouts/DashboardLayout';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userScoreState, userState } from '../../stores/user';
+import { userState } from '../../stores/user';
 import { Flex, Heading, Text } from '@chakra-ui/layout';
 import Icon from '@chakra-ui/icon';
-import {
-  FaBriefcase,
-  FaBuilding,
-  FaCreditCard,
-  FaEnvelope,
-  FaSearch,
-  FaUser,
-} from 'react-icons/fa';
-import axios from 'axios';
+import { FaBuilding, FaSearch } from 'react-icons/fa';
 import agencyService from '../../services/agencyService';
-import { Skeleton } from '@chakra-ui/skeleton';
 import { agenciesState } from '../../stores/agency';
 import HTMLReactParser from 'html-react-parser';
-import {
-  FormControl,
-  FormHelperText,
-  FormLabel,
-} from '@chakra-ui/form-control';
+import { FormControl } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import string from '../../utils/string';
 import { Spinner } from '@chakra-ui/spinner';
+import { Link } from 'react-router-dom';
 
 const Agencies = () => {
   const user = useRecoilValue(userState);
@@ -83,6 +71,8 @@ const Agencies = () => {
           .map(({ id, name, job, allocation }) => (
             <Flex
               key={id}
+              as={Link}
+              to={`/info-instansi/${id}`}
               direction="row"
               bg="white"
               shadow="md"

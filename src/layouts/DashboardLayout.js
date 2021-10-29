@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }) => {
         minH="100vh"
         pt="24"
         pb="10"
-        bg={useColorModeValue('gray.100', 'gray.800')}
+        bg={useColorModeValue('gray.50', 'gray.800')}
       >
         <Container display="flex" flexDir="column" maxW="container.sm">
           {children}
