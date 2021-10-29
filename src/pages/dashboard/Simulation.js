@@ -13,9 +13,11 @@ import { FaStar } from 'react-icons/fa';
 import Icon from '@chakra-ui/icon';
 import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 const Simulation = () => {
   const user = useRecoilValue(userState);
+  const bgColor = useColorModeValue('white', 'gray.800');
 
   const [trials, setTrials] = useRecoilState(trialsState);
   const [isLoading, setIsLoading] = useState();
@@ -77,7 +79,7 @@ const Simulation = () => {
             as={Link}
             to={`/simulasi/${id}`}
             direction="row"
-            bg="white"
+            bg={bgColor}
             shadow="md"
             rounded="lg"
             p="3"
@@ -147,7 +149,7 @@ const Simulation = () => {
             as={Link}
             to={`/simulasi/${id}`}
             direction="row"
-            bg="white"
+            bg={bgColor}
             shadow="md"
             rounded="lg"
             p="3"

@@ -14,9 +14,11 @@ import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import string from '../../utils/string';
 import { Spinner } from '@chakra-ui/spinner';
 import { Link } from 'react-router-dom';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 const Agencies = () => {
   const user = useRecoilValue(userState);
+  const bgColor = useColorModeValue('white', 'gray.800');
 
   const [agencies, setAgencies] = useRecoilState(agenciesState);
   const [isLoading, setIsLoading] = useState();
@@ -74,7 +76,7 @@ const Agencies = () => {
               as={Link}
               to={`/info-instansi/${id}`}
               direction="row"
-              bg="white"
+              bg={bgColor}
               shadow="md"
               rounded="lg"
               p="3"

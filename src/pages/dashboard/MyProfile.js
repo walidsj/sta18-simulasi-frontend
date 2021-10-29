@@ -15,9 +15,11 @@ import {
 import axios from 'axios';
 import userService from '../../services/userService';
 import { Skeleton } from '@chakra-ui/skeleton';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 const MyProfile = () => {
   const user = useRecoilValue(userState);
+  const bgColor = useColorModeValue('white', 'gray.800');
 
   const [userScore, setUserScore] = useRecoilState(userScoreState);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +63,7 @@ const MyProfile = () => {
         <Flex
           key={title}
           direction="row"
-          bg="white"
+          bg={bgColor}
           shadow="md"
           rounded="lg"
           p="3"
@@ -83,7 +85,7 @@ const MyProfile = () => {
       </Heading>
       <Flex
         direction="row"
-        bg="white"
+        bg={bgColor}
         shadow="md"
         rounded="lg"
         p="3"
