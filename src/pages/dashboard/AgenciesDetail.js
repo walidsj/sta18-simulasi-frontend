@@ -26,13 +26,12 @@ const AgenciesDetail = () => {
   const [agency, setAgency] = useState();
   const [isLoading, setIsLoading] = useState();
 
-  // fetching user score
+  // fetching agency
   useEffect(() => {
     const fetchAgency = async () => {
       setIsLoading(true);
       const { data } = await agencyService.get(id, user.token);
       setAgency(data);
-      console.log(data);
       setIsLoading(false);
     };
 
@@ -42,7 +41,7 @@ const AgenciesDetail = () => {
   if (!agency)
     return (
       <DashboardLayout>
-        <Helmet title="Info Instansi" />
+        <Helmet title="Informasi Instansi" />
         {isLoading ? <Spinner /> : <Text>Tidak ditemukan.</Text>}
       </DashboardLayout>
     );

@@ -92,7 +92,7 @@ const MyProfile = () => {
         justifyContent="space-between"
       >
         {userScoreInfo.map(({ title, content }) => (
-          <Flex direction="column" textAlign="center">
+          <Flex direction="column" textAlign="center" key={title}>
             <Heading size="xs">{title}</Heading>
             <Skeleton isLoaded={!isLoading}>
               <Text fontSize="xl">{content}</Text>

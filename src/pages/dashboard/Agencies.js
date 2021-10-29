@@ -22,7 +22,7 @@ const Agencies = () => {
   const [isLoading, setIsLoading] = useState();
   const [search, setSearch] = useState();
 
-  // fetching user score
+  // fetching list of agency
   useEffect(() => {
     const fetchAgencies = async () => {
       setIsLoading(true);
@@ -36,9 +36,9 @@ const Agencies = () => {
 
   return (
     <DashboardLayout>
-      <Helmet title="Info Instansi" />
+      <Helmet title="Informasi Instansi" />
       <Heading size="lg" mb="4" fontWeight="bold">
-        Info Instansi
+        Informasi Instansi
       </Heading>
 
       <FormControl id="search" mb="4">
