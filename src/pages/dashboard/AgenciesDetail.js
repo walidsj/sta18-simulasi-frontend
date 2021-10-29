@@ -1,16 +1,11 @@
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userState } from '../../stores/user';
-import { Flex, Heading, Text } from '@chakra-ui/layout';
-import Icon from '@chakra-ui/icon';
-import { FaBuilding, FaSearch } from 'react-icons/fa';
+import { Heading, Text } from '@chakra-ui/layout';
 import agencyService from '../../services/agencyService';
 import HTMLReactParser from 'html-react-parser';
-import { FormControl } from '@chakra-ui/form-control';
-import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
-import string from '../../utils/string';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
 import {
@@ -18,11 +13,11 @@ import {
   TableCaption,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
 } from '@chakra-ui/table';
+import BackButton from '../../components/ui/BackButton';
 
 const AgenciesDetail = () => {
   const user = useRecoilValue(userState);
@@ -30,7 +25,6 @@ const AgenciesDetail = () => {
 
   const [agency, setAgency] = useState();
   const [isLoading, setIsLoading] = useState();
-  const [search, setSearch] = useState();
 
   // fetching user score
   useEffect(() => {
@@ -56,6 +50,7 @@ const AgenciesDetail = () => {
   return (
     <DashboardLayout>
       <Helmet title={agency.name} />
+      <BackButton to="/info-instansi" mb="4" />
       <Heading size="lg" mb="4" fontWeight="bold">
         {agency.name}
       </Heading>

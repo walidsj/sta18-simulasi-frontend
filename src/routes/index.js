@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Spinner, Flex } from '@chakra-ui/react';
 
 import Login from '../pages/auth/Login';
+import ScrollToTop from '../components/ScrollToTop';
 const MyProfile = lazy(() => import('../pages/dashboard/MyProfile'));
 const Agencies = lazy(() => import('../pages/dashboard/Agencies'));
 const AgenciesDetail = lazy(() => import('../pages/dashboard/AgenciesDetail'));
@@ -19,6 +20,7 @@ export const Router = () => {
           </Flex>
         }
       >
+        <ScrollToTop />
         <Switch>
           <UnauthenticatedRoute path="/login" children={<Login />} />
 

@@ -7,7 +7,7 @@ export default function BackButton(props) {
   return (
     <Flex>
       <Link {...props}>
-        <Flex direction="row" alignItems="center">
+        <Flex direction="row" alignItems="center" {...props}>
           <Icon as={FaArrowLeft} />
           <Text ml="5px">Kembali</Text>
         </Flex>
