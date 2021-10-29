@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/table';
 import BackButton from '../../components/ui/BackButton';
 
-const AgenciesDetail = () => {
+const AgencyDetail = () => {
   const user = useRecoilValue(userState);
   let { id } = useParams();
 
@@ -98,4 +98,4 @@ const AgenciesDetail = () => {
   );
 };
 
-export default AgenciesDetail;
+export default AgencyDetail;
