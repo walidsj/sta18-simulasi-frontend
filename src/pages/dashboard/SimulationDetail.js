@@ -14,9 +14,12 @@ import Countdown from 'react-countdown';
 import SimulationOption from '../../components/simulation/SimulationOption';
 import agencyService from '../../services/agencyService';
 import { majorAgenciesState, userAgenciesState } from '../../stores/agency';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 const SimulationDetail = () => {
   const user = useRecoilValue(userState);
+  const bgColor = useColorModeValue('white', 'gray.800');
+
   let { id } = useParams();
 
   const [trial, setTrial] = useState();
@@ -84,7 +87,7 @@ const SimulationDetail = () => {
           <Flex
             p="3"
             direction="column"
-            bg="white"
+            bg={bgColor}
             rounded="xl"
             shadow="lg"
             mb="6"
