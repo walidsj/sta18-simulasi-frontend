@@ -129,12 +129,13 @@ const SimulationDetail = () => {
   if (dayjs(trial.closed_at) < dayjs(new Date()))
     return (
       <Layout trial={trial}>
-        <Alert status="error" p="0" variant="subtle" rounded="full">
+        <Alert status="error" p="0" variant="subtle" rounded="full" mb="6">
           <AlertIcon />
           <Text as="div" fontSize="sm">
             Simulasi sudah ditutup.
           </Text>
         </Alert>
+        <iframe src={trial.url_document} height="500px" />
       </Layout>
     );
 
