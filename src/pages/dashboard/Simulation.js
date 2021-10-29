@@ -24,7 +24,6 @@ const Simulation = () => {
     setIsLoading(true);
     const { data } = await trialService.getAll(user.token);
     setTrials(data);
-    console.log(data);
     setIsLoading(false);
   };
 
