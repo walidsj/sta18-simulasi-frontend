@@ -6,12 +6,12 @@ import BackButton from '../components/ui/BackButton';
 export default function SimulationLayout({ trial, children }) {
   return (
     <DashboardLayout>
-      <Helmet title={trial.title} />
+      <Helmet title={trial?.title || 'Simulasi'} />
       <BackButton to="/simulasi" mb="4" />
       <Heading size="lg" mb="3" fontWeight="bold">
-        {trial.title}
+        {trial?.title || ''}
       </Heading>
-      <Text mb="6">{trial.description}</Text>
+      <Text mb="6">{trial?.description || ''}</Text>
       {children}
     </DashboardLayout>
   );

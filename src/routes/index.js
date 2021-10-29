@@ -7,7 +7,7 @@ import MyProfile from '../pages/dashboard/MyProfile';
 import Agencies from '../pages/dashboard/Agencies';
 import AgencyDetail from '../pages/dashboard/AgencyDetail';
 import Simulation from '../pages/dashboard/Simulation';
-import SimulationDetail from '../pages/dashboard/simulation/SimulationDetail';
+import SimulationDetail from '../pages/dashboard/SimulationDetail';
 // const MyProfile = lazy(() => import('../pages/dashboard/MyProfile'));
 // const Agencies = lazy(() => import('../pages/dashboard/Agencies'));
 // const AgenciesDetail = lazy(() => import('../pages/dashboard/AgenciesDetail'));

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../../stores/user';
+import { userState } from '../../stores/user';
 import { Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
-import trialService from '../../../services/trialService';
+import trialService from '../../services/trialService';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
-import SimulationLayout from '../../../layouts/SimulationLayout';
-import OpenSimulation from '../../../components/simulation/OpenSimulation';
+import SimulationLayout from '../../layouts/SimulationLayout';
+import OpenSimulation from '../../components/simulation/OpenSimulation';
 
 const SimulationDetail = () => {
   const user = useRecoilValue(userState);
@@ -33,7 +33,7 @@ const SimulationDetail = () => {
   // simulasi tidak ditemukan
   if (!trial)
     return (
-      <SimulationLayout trial={{ title: 'Simulasi' }}>
+      <SimulationLayout>
         {isLoading ? <Spinner /> : <Text>Simulasi tidak ditemukan.</Text>}
       </SimulationLayout>
     );
