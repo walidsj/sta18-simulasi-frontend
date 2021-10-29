@@ -50,7 +50,7 @@ const MyProfile = () => {
 
   return (
     <DashboardLayout>
-      <Helmet title="Selamat Datang" />
+      <Helmet title="Profil Saya" />
       <Heading size="lg" mb="4" fontWeight="bold">
         Akun Saya
       </Heading>

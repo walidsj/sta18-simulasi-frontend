@@ -6,6 +6,7 @@ import { Spinner, Flex } from '@chakra-ui/react';
 
 import Login from '../pages/auth/Login';
 const MyProfile = lazy(() => import('../pages/dashboard/MyProfile'));
+const Agencies = lazy(() => import('../pages/dashboard/Agencies'));
 
 export const Router = () => {
   return (
@@ -21,7 +22,7 @@ export const Router = () => {
           <UnauthenticatedRoute path="/login" children={<Login />} />
 
           <AuthenticatedRoute path="/" exact children={<MyProfile />} />
-          <AuthenticatedRoute path="/info-instansi" children={<MyProfile />} />
+          <AuthenticatedRoute path="/info-instansi" children={<Agencies />} />
           <AuthenticatedRoute path="/simulasi" children={<MyProfile />} />
 
           <Route>404 Not Found</Route>
