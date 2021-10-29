@@ -99,8 +99,9 @@ const SimulationDetail = () => {
               rounded="lg"
             >
               <AlertIcon />
-              Tidak perlu kunci data selama data pilihan tersimpan sudah sesuai
-              dengan keinginan. Tinggal menunggu simulasi ditutup.
+              Tidak perlu kunci data selama data pilihan sudah tersimpan. Jika
+              sudah sesuai dengan keinginan, kamu hanya perlu menunggu simulasi
+              ditutup.
             </Alert>
             {userAgencies.map(({ id, title, name }) => (
               <Text key={id}>
