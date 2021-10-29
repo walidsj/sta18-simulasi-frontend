@@ -22,9 +22,9 @@ const AuthLayout = ({ children }) => {
       <Container
         display="flex"
         flexDir="column"
-        gridGap="20px"
+        gridGap="5"
         maxW="container.sm"
-        py="50px"
+        py={{ base: '6', lg: '24' }}
         centerContent
       >
         <Flex
@@ -37,7 +37,7 @@ const AuthLayout = ({ children }) => {
         >
           <Flex
             flexDir="column"
-            backgroundImage="/images/auth-bg.jpg"
+            backgroundImage="/images/bg-auth.jpg"
             backgroundSize="cover"
             maxW={{ md: 'xs' }}
             p="8"
@@ -82,30 +82,6 @@ const AuthLayout = ({ children }) => {
           </Flex>
           <Flex flexDir="column" w="full" p="8">
             {children}
-          </Flex>
-          <Flex
-            flexDir="column"
-            backgroundImage="/images/auth-bg.jpg"
-            backgroundSize="cover"
-            maxW={{ md: 'xs' }}
-            p="8"
-            display={{ base: 'block', md: 'none' }}
-          >
-            <Flex flexDir="column">
-              {buttons.map(({ text, icon }) => (
-                <Button
-                  key={text}
-                  w="full"
-                  colorScheme="whiteAlpha"
-                  size="xs"
-                  boxShadow="md"
-                  my="1.5"
-                  leftIcon={icon}
-                >
-                  {text}
-                </Button>
-              ))}
-            </Flex>
           </Flex>
         </Flex>
         <Text fontSize="sm" color="white">
