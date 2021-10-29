@@ -1,12 +1,11 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { Flex, Heading, Text } from '@chakra-ui/layout';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Countdown from 'react-countdown';
 import { useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import agencyService from '../../services/agencyService';
-import trialService from '../../services/trialService';
 import { majorAgenciesState, userAgenciesState } from '../../stores/agency';
 import { userState } from '../../stores/user';
 import SimulationLayout from '../../layouts/SimulationLayout';

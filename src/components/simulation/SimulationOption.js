@@ -69,7 +69,9 @@ function SimulationOption({ trialOption }) {
             placeholder="Pilih Instansi"
           >
             {majorAgencies.map(({ agency_id, name }) => (
-              <option value={agency_id}>{name}</option>
+              <option key={agency_id} value={agency_id}>
+                {name}
+              </option>
             ))}
           </Select>
           <Button
