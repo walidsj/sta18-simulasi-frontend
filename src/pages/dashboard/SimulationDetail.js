@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
 import SimulationLayout from '../../layouts/SimulationLayout';
 import OpenSimulation from '../../components/simulation/OpenSimulation';
+import ClosedSimulation from '../../components/simulation/ClosedSimulation';
 
 const SimulationDetail = () => {
   const user = useRecoilValue(userState);
@@ -38,26 +39,16 @@ const SimulationDetail = () => {
       </SimulationLayout>
     );
 
-  // simulasi sudah buka dan belum tutup
+  // simulasi buka
   if (
     dayjs(trial.opened_at) < dayjs(new Date()) &&
     dayjs(trial.closed_at) > dayjs(new Date())
   )
     return <OpenSimulation trial={trial} />;
 
-  // simulasi sudah tutup
+  // simulasi tutup
   if (dayjs(trial.closed_at) < dayjs(new Date()))
-    return (
-      <SimulationLayout trial={trial}>
-        <Alert status="error" p="0" variant="subtle" rounded="full" mb="6">
-          <AlertIcon />
-          <Text as="div" fontSize="sm">
-            Simulasi sudah ditutup.
-          </Text>
-        </Alert>
-        <iframe src={trial.url_document} height="500px" />
-      </SimulationLayout>
-    );
+    return <ClosedSimulation trial={trial} />;
 
   // simulasi belum buka
   return (
