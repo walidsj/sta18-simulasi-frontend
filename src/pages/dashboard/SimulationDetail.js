@@ -1,7 +1,7 @@
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../../stores/user';
 import { Heading, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
@@ -11,6 +11,9 @@ import trialService from '../../services/trialService';
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
+import SimulationOption from '../../components/simulation/SimulationOption';
+import agencyService from '../../services/agencyService';
+import { majorAgenciesState } from '../../stores/agency';
 
 const SimulationDetail = () => {
   const user = useRecoilValue(userState);
@@ -19,17 +22,29 @@ const SimulationDetail = () => {
   const [trial, setTrial] = useState();
   const [isLoading, setIsLoading] = useState();
 
+  const setMajorAgencies = useSetRecoilState(majorAgenciesState);
+
+  const fetchMajorAgency = async () => {
+    const { data } = await agencyService.getMajorAgencies(
+      user.major.id,
+      user.user_type.id,
+      user.token
+    );
+    setMajorAgencies(data);
+    console.log(data);
+  };
+
   const fetchTrial = async () => {
     setIsLoading(true);
     const { data } = await trialService.get(id, user.token);
     setTrial(data);
-    console.log(data);
     setIsLoading(false);
   };
 
   // fetching trial
   useEffect(() => {
     fetchTrial();
+    fetchMajorAgency();
   }, [user, setIsLoading]);
 
   // simulasi tidak ditemukan
@@ -47,9 +62,25 @@ const SimulationDetail = () => {
   )
     return (
       <Layout trial={trial}>
-        {trial.trial_options.length > 0 ? (
-          trial.trial_options.map(({ title }) => <Text>{title}</Text>)
-        ) : (
+        <Alert status="warning" p="0" variant="subtle" rounded="full" mb="4">
+          <AlertIcon />
+          <Text as="div" fontSize="sm">
+            Ditutup dalam{' '}
+            <Text
+              as={Countdown}
+              fontWeight="bold"
+              date={trial.closed_at}
+              zeroPadDays={0}
+              onComplete={() => fetchTrial()}
+            />
+          </Text>
+        </Alert>
+        {trial.trial_options.length > 0 &&
+          trial.trial_options.map(option => (
+            <SimulationOption trialOption={option} />
+          ))}
+
+        {trial.trial_options.length < 1 && (
           <Alert status="warning" p="0" variant="subtle" rounded="full">
             <AlertIcon />
             <Text as="div" fontSize="sm">
@@ -83,7 +114,7 @@ const SimulationDetail = () => {
           <Text
             as={Countdown}
             fontWeight="bold"
-            date={dayjs(trial.opened_at)}
+            date={trial.opened_at}
             zeroPadDays={0}
             onComplete={() => fetchTrial()}
           />
@@ -98,7 +129,7 @@ const Layout = ({ trial, children }) => {
     <DashboardLayout>
       <Helmet title={trial.title} />
       <BackButton to="/simulasi" mb="4" />
-      <Heading size="lg" mb="4" fontWeight="bold">
+      <Heading size="lg" mb="3" fontWeight="bold">
         {trial.title}
       </Heading>
       <Text mb="6">{trial.description}</Text>

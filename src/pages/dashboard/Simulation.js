@@ -102,7 +102,7 @@ const Simulation = () => {
                       <Text
                         as={Countdown}
                         fontWeight="bold"
-                        date={dayjs(opened_at)}
+                        date={opened_at}
                         zeroPadDays={0}
                         onComplete={() => fetchTrials()}
                       />
@@ -123,7 +123,7 @@ const Simulation = () => {
                         <Text
                           as={Countdown}
                           fontWeight="bold"
-                          date={dayjs(closed_at)}
+                          date={closed_at}
                           zeroPadDays={0}
                           onComplete={() => fetchTrials()}
                         />

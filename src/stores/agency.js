@@ -4,3 +4,8 @@ export const agenciesState = atom({
   key: 'agenciesState',
   default: '',
 });
+
+export const majorAgenciesState = atom({
+  key: 'majorAgenciesState',
+  default: '',
+});
