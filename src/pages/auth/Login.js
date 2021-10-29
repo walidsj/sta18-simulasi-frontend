@@ -53,7 +53,7 @@ const Login = () => {
     await authService
       .login(values)
       .then(({ token }) => {
-        setUser(jwtDecode(token));
+        setUser({ ...jwtDecode(token), token });
         localStorage.setItem('token', token);
         return router.push(
           `${redirectURI.get('redirectpath')}${
