@@ -42,10 +42,16 @@ const MyProfile = () => {
     { icon: FaBuilding, title: 'Status', content: user.user_type.name },
   ];
 
+  const userScoreInfo = [
+    { title: 'IPK', content: userScore.cum_score },
+    { title: 'SKD', content: Number(userScore.skd_score).toFixed(0) },
+    { title: 'N. Akhir', content: Number(userScore.final_score).toFixed(2) },
+  ];
+
   return (
     <DashboardLayout>
       <Helmet title="Selamat Datang" />
-      <Heading size="lg" mb="4">
+      <Heading size="lg" mb="4" fontWeight="bold">
         Akun Saya
       </Heading>
       <Heading size="md" mb="3">
@@ -85,28 +91,14 @@ const MyProfile = () => {
         my="2"
         justifyContent="space-between"
       >
-        <Flex direction="column" textAlign="center">
-          <Heading size="xs">IPK</Heading>
-          <Skeleton isLoaded={!isLoading}>
-            <Text fontSize="xl">{userScore.cum_score}</Text>
-          </Skeleton>
-        </Flex>
-        <Flex direction="column" textAlign="center">
-          <Heading size="xs">SKD</Heading>
-          <Skeleton isLoaded={!isLoading}>
-            <Text fontSize="xl">{userScore.skd_score}</Text>
-          </Skeleton>
-        </Flex>
-        <Flex direction="column" textAlign="center">
-          <Heading size="xs">N. Akhir</Heading>
-          <Skeleton isLoaded={!isLoading}>
-            <Text fontSize="xl">
-              {userScore.final_score
-                ? Number(userScore.final_score).toFixed(2)
-                : ''}
-            </Text>
-          </Skeleton>
-        </Flex>
+        {userScoreInfo.map(({ title, content }) => (
+          <Flex direction="column" textAlign="center">
+            <Heading size="xs">{title}</Heading>
+            <Skeleton isLoaded={!isLoading}>
+              <Text fontSize="xl">{content}</Text>
+            </Skeleton>
+          </Flex>
+        ))}
       </Flex>
 
       <Text fontSize="sm">
