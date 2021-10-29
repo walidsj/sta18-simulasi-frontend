@@ -35,4 +35,18 @@ export default {
       throw error;
     }
   },
+  postUserAgency: async (trial_id, trial_option_id, data, token) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/user-agencies/${trial_id}/${trial_option_id}`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 };

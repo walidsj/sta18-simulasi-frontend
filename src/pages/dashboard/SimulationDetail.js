@@ -1,7 +1,7 @@
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../../stores/user';
 import { Heading, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
@@ -25,20 +25,14 @@ const SimulationDetail = () => {
   const setMajorAgencies = useSetRecoilState(majorAgenciesState);
 
   const fetchMajorAgency = async () => {
-    const { data } = await agencyService.getMajorAgencies(
-      user.major.id,
-      user.user_type.id,
-      user.token
-    );
-    setMajorAgencies(data);
-    console.log(data);
+    await agencyService
+      .getMajorAgencies(user.major.id, user.user_type.id, user.token)
+      .then(({ data }) => setMajorAgencies(data));
   };
 
   const fetchTrial = async () => {
     setIsLoading(true);
-    const { data } = await trialService.get(id, user.token);
-    setTrial(data);
-    setIsLoading(false);
+    await trialService.get(id, user.token).then(({ data }) => setTrial(data));
   };
 
   // fetching trial

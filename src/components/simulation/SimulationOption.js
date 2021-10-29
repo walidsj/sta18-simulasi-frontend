@@ -10,11 +10,15 @@ import { Spinner } from '@chakra-ui/spinner';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FaLock } from 'react-icons/fa';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import swal from 'sweetalert';
 import { object, string } from 'yup';
+import agencyService from '../../services/agencyService';
 import { majorAgenciesState } from '../../stores/agency';
+import { userState } from '../../stores/user';
 
 function SimulationOption({ trialOption }) {
+  const user = useRecoilValue(userState);
   const [majorAgencies, setMajorAgencies] = useRecoilState(majorAgenciesState);
 
   // validation form
@@ -32,7 +36,19 @@ function SimulationOption({ trialOption }) {
   });
 
   const onSubmit = async values => {
-    console.log(values);
+    await agencyService
+      .postUserAgency(
+        trialOption.trial_id,
+        trialOption.id,
+        { user_id: user.sub, agency_id: values.agency_id },
+        user.token
+      )
+      .then(({ message }) => {
+        return swal('Success', message, 'success');
+      })
+      .catch(({ response }) => {
+        return swal('Failed', response.data.message, 'error');
+      });
   };
 
   if (!majorAgencies) return <Spinner />;
@@ -52,7 +68,13 @@ function SimulationOption({ trialOption }) {
               <option value={agency_id}>{name}</option>
             ))}
           </Select>
-          <Button colorScheme="green" my="1" mr="2" type="submit">
+          <Button
+            colorScheme="green"
+            my="1"
+            mr="2"
+            type="submit"
+            isLoading={isSubmitting}
+          >
             Simpan
           </Button>
         </Flex>
