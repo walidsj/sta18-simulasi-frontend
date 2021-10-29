@@ -12,4 +12,14 @@ export default {
       throw error;
     }
   },
+  get: async (id, token) => {
+    try {
+      const response = await axios.get(`${API_URL}/trials/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 };

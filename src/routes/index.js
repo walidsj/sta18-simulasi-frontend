@@ -9,6 +9,7 @@ import MyProfile from '../pages/dashboard/MyProfile';
 import Agencies from '../pages/dashboard/Agencies';
 import AgencyDetail from '../pages/dashboard/AgencyDetail';
 import Simulation from '../pages/dashboard/Simulation';
+import SimulationDetail from '../pages/dashboard/SimulationDetail';
 // const MyProfile = lazy(() => import('../pages/dashboard/MyProfile'));
 // const Agencies = lazy(() => import('../pages/dashboard/Agencies'));
 // const AgenciesDetail = lazy(() => import('../pages/dashboard/AgenciesDetail'));
@@ -40,7 +41,11 @@ export const Router = () => {
           children={<AgencyDetail />}
         />
 
-        <AuthenticatedRoute path="/simulasi" children={<Simulation />} />
+        <AuthenticatedRoute path="/simulasi" exact children={<Simulation />} />
+        <AuthenticatedRoute
+          path="/simulasi/:id"
+          children={<SimulationDetail />}
+        />
 
         <Route>404 Not Found</Route>
       </Switch>
