@@ -37,7 +37,7 @@ export default {
   },
   getUserAgency: async (trial_id, token) => {
     try {
-      const response = await axios.get(`${API_URL}/user-agencies/${trial_id}`, {
+      const response = await axios.get(`${API_URL}/user-agency/${trial_id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
@@ -48,12 +48,22 @@ export default {
   postUserAgency: async (trial_id, trial_option_id, data, token) => {
     try {
       const response = await axios.post(
-        `${API_URL}/user-agencies/${trial_id}/${trial_option_id}`,
+        `${API_URL}/user-agency/${trial_id}/${trial_option_id}`,
         data,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  getUserAgencies: async (trial_id, token) => {
+    try {
+      const response = await axios.get(`${API_URL}/user-agencies/${trial_id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data;
     } catch (error) {
       throw error;

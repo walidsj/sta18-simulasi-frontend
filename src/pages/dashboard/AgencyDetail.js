@@ -59,7 +59,7 @@ const AgencyDetail = () => {
       <Text mb="6">{HTMLReactParser(agency.job)}</Text>
 
       <Table variant="striped" size="sm">
-        <TableCaption>Data berasal dari K/L/P Fest dan wawancara.</TableCaption>
+        <TableCaption>Data berasal dari KLP Fest dan wawancara.</TableCaption>
         <Thead>
           <Tr>
             <Th>Kategori</Th>

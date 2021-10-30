@@ -14,3 +14,8 @@ export const userAgenciesState = atom({
   key: 'userAgenciesState',
   default: '',
 });
+
+export const userAgenciesListState = atom({
+  key: 'userAgenciesListState',
+  default: '',
+});

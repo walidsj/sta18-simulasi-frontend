@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../stores/user';
-import { Text } from '@chakra-ui/layout';
+import { Box, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
 import trialService from '../../services/trialService';
@@ -35,7 +35,14 @@ const SimulationDetail = () => {
   if (!trial)
     return (
       <SimulationLayout>
-        {isLoading ? <Spinner /> : <Text>Simulasi tidak ditemukan.</Text>}
+        {isLoading ? (
+          <Box>
+            <Spinner />
+            Loading simulasi...
+          </Box>
+        ) : (
+          <Text>Simulasi tidak ditemukan.</Text>
+        )}
       </SimulationLayout>
     );
 
