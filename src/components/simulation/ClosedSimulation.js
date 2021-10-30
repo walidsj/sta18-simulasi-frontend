@@ -78,6 +78,12 @@ export default function ClosedSimulation({ trial }) {
       )
     : null;
 
+  const users_list = userAgenciesList
+    ? _.uniqBy(userAgenciesList, function (e) {
+        return e.user_id;
+      })
+    : null;
+
   const my_agencies_list = userAgenciesList
     ? _.orderBy(
         userAgenciesList
@@ -128,6 +134,23 @@ export default function ClosedSimulation({ trial }) {
           <Heading size="md" mb="3">
             Filter Data
           </Heading>
+
+          <Text my="2" fontSize="sm">
+            Peserta Simulasi: {users_list.length} orang
+          </Text>
+
+          <Alert status="info" p="2" variant="subtle" rounded="lg" mb="6">
+            <AlertIcon />
+            <Text as="div" fontSize="xs">
+              <strong>Tips:</strong>
+              <br />
+              - Buka website melalui desktop untuk dapat tampilan terbaik.
+              <br />
+              - Cari (Ctrl/Cmd+F) kata "saya" untuk menemukan ranking kamu.
+              <br />
+            </Text>
+          </Alert>
+
           <Flex direction={{ base: 'column', md: 'row' }}>
             <FormControl mb="3">
               <FormLabel>Instansi Pilihan</FormLabel>
@@ -239,7 +262,9 @@ export default function ClosedSimulation({ trial }) {
                   }) => (
                     <Tr bgColor={user_id == user.sub && 'yellow.200'}>
                       <Td fontWeight="bold">{i++}</Td>
-                      <Td>{npm}</Td>
+                      <Td>
+                        {npm} {user_id == user.sub && '- saya'}
+                      </Td>
                       <Td>{cum_score}</Td>
                       <Td>{Number(skd_score).toFixed(0)}</Td>
                       <Td>{Number(final_score).toFixed(2)}</Td>
