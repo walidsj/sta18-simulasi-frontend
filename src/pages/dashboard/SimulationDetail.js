@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../stores/user';
-import { Box, Text } from '@chakra-ui/layout';
+import { Flex, Text } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
 import { useParams } from 'react-router-dom';
 import trialService from '../../services/trialService';
@@ -36,10 +36,10 @@ const SimulationDetail = () => {
     return (
       <SimulationLayout>
         {isLoading ? (
-          <Box>
+          <Flex direction="column">
             <Spinner />
-            Loading simulasi...
-          </Box>
+            Loading Data Instansi...
+          </Flex>
         ) : (
           <Text>Simulasi tidak ditemukan.</Text>
         )}

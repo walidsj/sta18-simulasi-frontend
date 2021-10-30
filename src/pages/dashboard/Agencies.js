@@ -55,7 +55,12 @@ const Agencies = () => {
         </InputGroup>
       </FormControl>
 
-      {!agencies && isLoading && <Spinner />}
+      {!agencies && isLoading && (
+        <Flex direction="column">
+          <Spinner />
+          Loading Data Instansi...
+        </Flex>
+      )}
 
       {!agencies && !isLoading && <Text>Tidak ada instansi.</Text>}
 

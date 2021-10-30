@@ -14,33 +14,18 @@ import {
   Tr,
 } from '@chakra-ui/table';
 import _ from 'lodash';
-import { Fragment, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import SimulationLayout from '../../layouts/SimulationLayout';
 import agencyService from '../../services/agencyService';
-import { majorAgenciesState, userAgenciesListState } from '../../stores/agency';
+import { majorAgenciesState } from '../../stores/agency';
 import { userState } from '../../stores/user';
 import SummaryDataSimulation from './SummaryDataSimulation';
 
 export default function ClosedSimulation({ trial }) {
   const user = useRecoilValue(userState);
 
-  const [majorAgencies, setMajorAgencies] = useRecoilState(majorAgenciesState);
-
-  //   const [userAgenciesList, setUserAgenciesList] = useRecoilState(
-  //     userAgenciesListState
-  //   );
-
   const [userAgenciesList, setUserAgenciesList] = useState();
-
-  // fetcher major_agencies sebagai daftar pilihan
-  const fetchMajorAgency = async () => {
-    await agencyService
-      .getMajorAgencies(user.major.id, user.user_type.id, user.token)
-      .then(({ data }) => {
-        setMajorAgencies(data);
-      });
-  };
 
   // fetcher user_agencies
   const fetchUserAgenciesList = async () => {
@@ -53,7 +38,6 @@ export default function ClosedSimulation({ trial }) {
 
   // fetching trial
   useEffect(() => {
-    fetchMajorAgency();
     fetchUserAgenciesList();
   }, [user]);
 

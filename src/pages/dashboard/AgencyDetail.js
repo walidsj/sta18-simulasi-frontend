@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../stores/user';
-import { Heading, Text } from '@chakra-ui/layout';
+import { Flex, Heading, Text } from '@chakra-ui/layout';
 import agencyService from '../../services/agencyService';
 import HTMLReactParser from 'html-react-parser';
 import { Spinner } from '@chakra-ui/spinner';
@@ -45,7 +45,14 @@ const AgencyDetail = () => {
         <Heading size="lg" mb="4" fontWeight="bold">
           Informasi Instansi
         </Heading>
-        {isLoading ? <Spinner /> : <Text>Tidak ditemukan.</Text>}
+        {isLoading ? (
+          <Flex direction="column">
+            <Spinner />
+            Loading Data Instansi...
+          </Flex>
+        ) : (
+          <Text>Tidak ditemukan.</Text>
+        )}
       </DashboardLayout>
     );
 

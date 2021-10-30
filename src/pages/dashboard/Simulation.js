@@ -41,7 +41,14 @@ const Simulation = () => {
         <Heading size="lg" mb="4" fontWeight="bold">
           Simulasi
         </Heading>
-        {isLoading ? <Spinner /> : <Text>Tidak ada simulasi.</Text>}
+        {isLoading ? (
+          <Flex direction="column">
+            <Spinner />
+            Loading Simulasi...
+          </Flex>
+        ) : (
+          <Text>Tidak ada simulasi.</Text>
+        )}
       </DashboardLayout>
     );
 

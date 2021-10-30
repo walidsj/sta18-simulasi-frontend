@@ -39,11 +39,21 @@ export default function SummaryDataSimulation({
         Peserta Simulasi: {users_list.length} orang
       </Text>
 
-      <Alert status="warning" p="2" variant="subtle" rounded="lg" mb="6">
+      <Alert status="warning" p="2" variant="subtle" rounded="lg" mb="3">
         <AlertIcon />
         <Text as="div" fontSize="sm">
           Instansi yang tidak dipilih sama sekali di semua pilihan tidak
           tercantum di tabel.
+        </Text>
+      </Alert>
+
+      <Alert status="info" p="2" variant="subtle" rounded="lg" mb="6">
+        <AlertIcon />
+        <Text as="div" fontSize="sm">
+          <strong>Tips:</strong>
+          <br />
+          Kita bisa copy paste tabel di bawah ini langsung ke Excel/Spreadsheet
+          untuk mengolah data lebih lanjut.
         </Text>
       </Alert>
 

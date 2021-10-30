@@ -55,7 +55,13 @@ function SimulationOption({ trialOption }) {
       });
   };
 
-  if (!majorAgencies) return <Spinner />;
+  if (!majorAgencies)
+    return (
+      <Flex direction="column">
+        <Spinner />
+        Loading Data Instansi...
+      </Flex>
+    );
 
   return (
     <Flex as="form" direction="column" my="2" onSubmit={handleSubmit(onSubmit)}>
