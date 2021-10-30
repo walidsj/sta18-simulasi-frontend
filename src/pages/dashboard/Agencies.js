@@ -92,7 +92,7 @@ const Agencies = () => {
                   {string.removeTags(job)}
                 </Text>
                 <Text fontSize="xs" fontWeight="bold">
-                  Alokasi:
+                  Pengajuan Formasi oleh Instansi:
                 </Text>
                 <Text fontSize="xs" as="div">
                   {HTMLReactParser(allocation)}
