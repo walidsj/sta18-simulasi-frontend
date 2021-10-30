@@ -68,25 +68,29 @@ export default function ClosedSimulation({ trial }) {
     ['label', 'value']
   );
 
-  const agencies_list = _.orderBy(
-    _.uniqBy(userAgenciesList, function (e) {
-      return e.name;
-    }).map(e => {
-      return { label: e.name, value: e.agency_id };
-    }),
-    ['label', 'value']
-  );
+  const agencies_list = userAgenciesList
+    ? _.orderBy(
+        _.uniqBy(userAgenciesList, function (e) {
+          return e.name;
+        }).map(e => {
+          return { label: e.name, value: e.agency_id };
+        }),
+        ['label', 'value']
+      )
+    : null;
 
-  const my_agencies_list = _.orderBy(
-    userAgenciesList
-      .filter(({ user_id }) => {
-        return user_id == user.sub;
-      })
-      .map(e => {
-        return { label: `${e.title} - ${e.name} `, value: e.agency_id };
-      }),
-    ['label', 'value']
-  );
+  const my_agencies_list = userAgenciesList
+    ? _.orderBy(
+        userAgenciesList
+          .filter(({ user_id }) => {
+            return user_id == user.sub;
+          })
+          .map(e => {
+            return { label: `${e.title} - ${e.name} `, value: e.agency_id };
+          }),
+        ['label', 'value']
+      )
+    : null;
 
   const [filterOption, setFilterOption] = useState();
   const [filterAgency, setFilterAgency] = useState();
