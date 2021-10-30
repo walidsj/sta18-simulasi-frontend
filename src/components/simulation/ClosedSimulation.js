@@ -100,17 +100,47 @@ export default function ClosedSimulation({ trial }) {
   const [filterOption, setFilterOption] = useState();
   const [filterAgency, setFilterAgency] = useState();
 
+  const sortTerm = term => {
+    switch (term) {
+      case 'final_score_desc':
+        return {
+          by: ['final_score', 'cum_score', 'skd_score', 'title'],
+          sort: ['desc', 'desc', 'desc', 'asc'],
+        };
+        break;
+
+      case 'title_asc':
+        return {
+          by: ['title', 'final_score', 'cum_score', 'skd_score'],
+          sort: ['asc', 'desc', 'desc', 'desc'],
+        };
+        break;
+
+      default:
+        return {
+          by: ['final_score', 'cum_score', 'skd_score', 'title'],
+          sort: ['desc', 'desc', 'desc', 'asc'],
+        };
+    }
+  };
+
+  const [filterSort, setFilterSort] = useState(sortTerm());
+
   const filteredUserAgenciesList = userAgenciesList
-    ? userAgenciesList
-        .filter(({ agency_id }) => {
-          if (filterAgency) return filterAgency === agency_id;
-        })
-        .filter(({ trial_option_id }) => {
-          if (filterOption) {
-            if (filterOption === 'mix') return true;
-            return filterOption === trial_option_id;
-          }
-        })
+    ? _.orderBy(
+        userAgenciesList
+          .filter(({ agency_id }) => {
+            if (filterAgency) return filterAgency === agency_id;
+          })
+          .filter(({ trial_option_id }) => {
+            if (filterOption) {
+              if (filterOption === 'mix') return true;
+              return filterOption === trial_option_id;
+            }
+          }),
+        filterSort.by,
+        filterSort.sort
+      )
     : null;
 
   return (
@@ -184,6 +214,26 @@ export default function ClosedSimulation({ trial }) {
             </FormControl>
           </Flex>
 
+          <Flex direction={{ base: 'column', md: 'row' }}>
+            <FormControl mb="3">
+              <FormLabel>Urut Berdasarkan</FormLabel>
+              <Select
+                defaultValue="final_score_desc"
+                onChange={e => setFilterSort(sortTerm(e.target.value))}
+                placeholder="Urut Berdasarkan..."
+              >
+                <optgroup label="Descending">
+                  <option value="final_score_desc">
+                    Nilai Akhir ➞ IPK ➞ SKD ➞ Urutan Pilihan
+                  </option>
+                  <option value="title_asc">
+                    Urutan Pilihan ➞ Nilai Akhir ➞ IPK ➞ SKD
+                  </option>
+                </optgroup>
+              </Select>
+            </FormControl>
+          </Flex>
+
           {filteredUserAgenciesList && (
             <Grid
               templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }}
@@ -240,7 +290,7 @@ export default function ClosedSimulation({ trial }) {
               <TableCaption>
                 Data berasal dari isian {trial.title}.
               </TableCaption>
-              <Thead>
+              <Thead bgColor="gray.50">
                 <Tr>
                   <Th>No.</Th>
                   <Th>NPM</Th>
@@ -272,8 +322,17 @@ export default function ClosedSimulation({ trial }) {
                     </Tr>
                   )
                 )}
+                {filteredUserAgenciesList.length < 1 && (
+                  <Tr>
+                    <Td colSpan="7" textAlign="center">
+                      {filterOption && filterAgency
+                        ? 'Tidak ada data.'
+                        : 'Pilih parameter filter dahulu.'}
+                    </Td>
+                  </Tr>
+                )}
               </Tbody>
-              <Tfoot>
+              <Tfoot bgColor="gray.50">
                 <Tr>
                   <Th colSpan="2">Min</Th>
                   <Th>
