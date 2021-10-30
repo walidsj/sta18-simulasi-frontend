@@ -21,7 +21,7 @@ const TopNavbar = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        maxW="container.md"
+        maxW="container.lg"
         py="2"
       >
         <Flex as={Link} to="/" color="white">

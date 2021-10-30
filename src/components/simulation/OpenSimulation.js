@@ -45,7 +45,8 @@ export default function OpenSimulation({ trial }) {
       <Alert status="warning" p="0" variant="subtle" rounded="full" mb="4">
         <AlertIcon />
         <Text as="div" fontSize="sm">
-          Ditutup dalam{' '}
+          Hasil simulasi akan muncul segera setelah simulasi ditutup. Ditutup
+          dalam{' '}
           <Text
             as={Countdown}
             fontWeight="bold"
