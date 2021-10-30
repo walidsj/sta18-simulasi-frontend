@@ -350,93 +350,147 @@ export default function ClosedSimulation({ trial }) {
                   <Tr>
                     <Th colSpan="2">Min</Th>
                     <Th>
-                      {Number(
-                        _.min(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.cum_score);
-                          })
-                        )
-                      ).toFixed(2)}
+                      {_.min(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.cum_score);
+                        })
+                      )
+                        ? Number(
+                            _.min(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.cum_score);
+                              })
+                            )
+                          ).toFixed(2)
+                        : '-'}
                     </Th>
                     <Th>
-                      {Number(
-                        _.min(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.skd_score);
-                          })
-                        )
-                      ).toFixed(0)}
+                      {_.min(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.skd_score);
+                        })
+                      )
+                        ? Number(
+                            _.min(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.skd_score);
+                              })
+                            )
+                          ).toFixed(0)
+                        : '-'}
                     </Th>
                     <Th>
-                      {Number(
-                        _.min(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.final_score);
-                          })
-                        )
-                      ).toFixed(2)}
+                      {_.min(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.final_score);
+                        })
+                      )
+                        ? Number(
+                            _.min(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.final_score);
+                              })
+                            )
+                          ).toFixed(2)
+                        : '-'}
                     </Th>
                     <Th></Th>
                   </Tr>
                   <Tr>
                     <Th colSpan="2">Max</Th>
                     <Th>
-                      {Number(
-                        _.max(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.cum_score);
-                          })
-                        )
-                      ).toFixed(2)}
+                      {_.max(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.cum_score);
+                        })
+                      )
+                        ? Number(
+                            _.max(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.cum_score);
+                              })
+                            )
+                          ).toFixed(2)
+                        : '-'}
                     </Th>
                     <Th>
-                      {Number(
-                        _.max(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.skd_score);
-                          })
-                        )
-                      ).toFixed(0)}
+                      {_.max(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.skd_score);
+                        })
+                      )
+                        ? Number(
+                            _.max(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.skd_score);
+                              })
+                            )
+                          ).toFixed(0)
+                        : '-'}
                     </Th>
                     <Th>
-                      {Number(
-                        _.max(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.final_score);
-                          })
-                        )
-                      ).toFixed(2)}
+                      {_.max(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.final_score);
+                        })
+                      )
+                        ? Number(
+                            _.max(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.final_score);
+                              })
+                            )
+                          ).toFixed(2)
+                        : '-'}
                     </Th>
                     <Th></Th>
                   </Tr>
                   <Tr>
                     <Th colSpan="2">Rata-rata</Th>
                     <Th>
-                      {Number(
-                        _.mean(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.cum_score);
-                          })
-                        )
-                      ).toFixed(2)}
+                      {_.mean(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.cum_score);
+                        })
+                      )
+                        ? Number(
+                            _.mean(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.cum_score);
+                              })
+                            )
+                          ).toFixed(2)
+                        : '-'}
                     </Th>
                     <Th>
-                      {Number(
-                        _.mean(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.skd_score);
-                          })
-                        )
-                      ).toFixed(0)}
+                      {_.mean(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.skd_score);
+                        })
+                      )
+                        ? Number(
+                            _.mean(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.skd_score);
+                              })
+                            )
+                          ).toFixed(0)
+                        : '-'}
                     </Th>
                     <Th>
-                      {Number(
-                        _.mean(
-                          _.map(filteredUserAgenciesList, e => {
-                            return Number(e.final_score);
-                          })
-                        )
-                      ).toFixed(2)}
+                      {_.mean(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.final_score);
+                        })
+                      )
+                        ? Number(
+                            _.mean(
+                              _.map(filteredUserAgenciesList, e => {
+                                return Number(e.final_score);
+                              })
+                            )
+                          ).toFixed(2)
+                        : '-'}
                     </Th>
                     <Th></Th>
                   </Tr>
