@@ -47,7 +47,7 @@ export default function SummaryDataSimulation({
         </Text>
       </Alert>
 
-      <Box overflow="auto" height="sm">
+      <Box overflow="auto">
         <Table variant="simple" size="sm" fontSize="xs">
           <TableCaption>Data berasal dari isian {trial.title}.</TableCaption>
           <Thead bgColor="gray.50" position="sticky">
