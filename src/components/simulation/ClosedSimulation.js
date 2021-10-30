@@ -1,6 +1,6 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
-import { Box, Flex, Heading, Text } from '@chakra-ui/layout';
+import { Box, Flex, Grid, Heading, Text } from '@chakra-ui/layout';
 import { Select } from '@chakra-ui/select';
 import { Spinner } from '@chakra-ui/spinner';
 import {
@@ -8,6 +8,7 @@ import {
   TableCaption,
   Tbody,
   Td,
+  Tfoot,
   Th,
   Thead,
   Tr,
@@ -37,7 +38,6 @@ export default function ClosedSimulation({ trial }) {
       .getMajorAgencies(user.major.id, user.user_type.id, user.token)
       .then(({ data }) => {
         setMajorAgencies(data);
-        console.log(data);
       });
   };
 
@@ -47,7 +47,6 @@ export default function ClosedSimulation({ trial }) {
       .getUserAgencies(trial.id, user.token)
       .then(({ data }) => {
         setUserAgenciesList(data);
-        console.log(data);
       });
   };
 
@@ -163,23 +162,22 @@ export default function ClosedSimulation({ trial }) {
           </Flex>
 
           {filteredUserAgenciesList && (
-            <Flex
-              direction="row"
+            <Grid
+              templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }}
+              gap="3"
               p="3"
-              alignItems="center"
               mb="3"
-              justifyContent="space-between"
             >
               <Flex direction="column">
                 <Heading size="xs">Range IPK</Heading>
-                <Text fontSize="xl">
+                <Text fontSize="lg">
                   {_.min(_.map(filteredUserAgenciesList, 'cum_score'))} -{' '}
                   {_.max(_.map(filteredUserAgenciesList, 'cum_score'))}
                 </Text>
               </Flex>
               <Flex direction="column">
                 <Heading size="xs">Range SKD</Heading>
-                <Text fontSize="xl">
+                <Text fontSize="lg">
                   {_.min(_.map(filteredUserAgenciesList, 'skd_score')) &&
                     Number(
                       _.min(_.map(filteredUserAgenciesList, 'skd_score'))
@@ -193,7 +191,7 @@ export default function ClosedSimulation({ trial }) {
               </Flex>
               <Flex direction="column">
                 <Heading size="xs">Range Nilai Akhir</Heading>
-                <Text fontSize="xl">
+                <Text fontSize="lg">
                   {_.min(_.map(filteredUserAgenciesList, 'final_score')) &&
                     Number(
                       _.min(_.map(filteredUserAgenciesList, 'final_score'))
@@ -205,43 +203,148 @@ export default function ClosedSimulation({ trial }) {
                     ).toFixed(2)}
                 </Text>
               </Flex>
-            </Flex>
+              <Flex direction="column">
+                <Heading size="xs">Jumlah Pemilih</Heading>
+                <Text fontSize="lg">
+                  {filteredUserAgenciesList.length || '-'}
+                </Text>
+              </Flex>
+            </Grid>
           )}
 
-          <Table variant="simple" size="sm">
-            <TableCaption>Data berasal dari isian {trial.title}.</TableCaption>
-            <Thead>
-              <Tr>
-                <Th>No.</Th>
-                <Th>NPM</Th>
-                <Th>IPK</Th>
-                <Th>SKD</Th>
-                <Th>N. Akhir</Th>
-                <Th>Pilihan</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {filteredUserAgenciesList.map(
-                ({
-                  user_id,
-                  npm,
-                  cum_score,
-                  skd_score,
-                  final_score,
-                  title,
-                }) => (
-                  <Tr bgColor={user_id == user.sub && 'yellow.200'}>
-                    <Td fontWeight="bold">{i++}</Td>
-                    <Td>{npm}</Td>
-                    <Td>{cum_score}</Td>
-                    <Td>{skd_score}</Td>
-                    <Td>{Number(final_score).toFixed(2)}</Td>
-                    <Td>{title}</Td>
-                  </Tr>
-                )
-              )}
-            </Tbody>
-          </Table>
+          <Box overflow="auto">
+            <Table variant="simple" size="sm">
+              <TableCaption>
+                Data berasal dari isian {trial.title}.
+              </TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>No.</Th>
+                  <Th>NPM</Th>
+                  <Th>IPK</Th>
+                  <Th>SKD</Th>
+                  <Th>N. Akhir</Th>
+                  <Th>Pilihan</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {filteredUserAgenciesList.map(
+                  ({
+                    user_id,
+                    npm,
+                    cum_score,
+                    skd_score,
+                    final_score,
+                    title,
+                  }) => (
+                    <Tr bgColor={user_id == user.sub && 'yellow.200'}>
+                      <Td fontWeight="bold">{i++}</Td>
+                      <Td>{npm}</Td>
+                      <Td>{cum_score}</Td>
+                      <Td>{Number(skd_score).toFixed(0)}</Td>
+                      <Td>{Number(final_score).toFixed(2)}</Td>
+                      <Td>{title}</Td>
+                    </Tr>
+                  )
+                )}
+              </Tbody>
+              <Tfoot>
+                <Tr>
+                  <Th colSpan="2">Min</Th>
+                  <Th>
+                    {Number(
+                      _.min(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.cum_score);
+                        })
+                      )
+                    ).toFixed(2)}
+                  </Th>
+                  <Th>
+                    {Number(
+                      _.min(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.skd_score);
+                        })
+                      )
+                    ).toFixed(0)}
+                  </Th>
+                  <Th>
+                    {Number(
+                      _.min(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.final_score);
+                        })
+                      )
+                    ).toFixed(2)}
+                  </Th>
+                  <Th></Th>
+                </Tr>
+                <Tr>
+                  <Th colSpan="2">Max</Th>
+                  <Th>
+                    {Number(
+                      _.max(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.cum_score);
+                        })
+                      )
+                    ).toFixed(2)}
+                  </Th>
+                  <Th>
+                    {Number(
+                      _.max(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.skd_score);
+                        })
+                      )
+                    ).toFixed(0)}
+                  </Th>
+                  <Th>
+                    {Number(
+                      _.max(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.final_score);
+                        })
+                      )
+                    ).toFixed(2)}
+                  </Th>
+                  <Th></Th>
+                </Tr>
+                <Tr>
+                  <Th colSpan="2">Rata-rata</Th>
+                  <Th>
+                    {Number(
+                      _.mean(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.cum_score);
+                        })
+                      )
+                    ).toFixed(2)}
+                  </Th>
+                  <Th>
+                    {Number(
+                      _.mean(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.skd_score);
+                        })
+                      )
+                    ).toFixed(0)}
+                  </Th>
+                  <Th>
+                    {Number(
+                      _.mean(
+                        _.map(filteredUserAgenciesList, e => {
+                          return Number(e.final_score);
+                        })
+                      )
+                    ).toFixed(2)}
+                  </Th>
+                  <Th></Th>
+                </Tr>
+              </Tfoot>
+            </Table>
+          </Box>
         </Flex>
       )}
       <iframe
