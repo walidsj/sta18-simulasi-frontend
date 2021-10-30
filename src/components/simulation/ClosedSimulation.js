@@ -454,11 +454,6 @@ export default function ClosedSimulation({ trial }) {
           />
         </>
       )}
-      <iframe
-        style={{ marginTop: '50px' }}
-        src={trial.url_document}
-        height="500px"
-      />
     </SimulationLayout>
   );
 }
